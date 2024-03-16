@@ -44,13 +44,16 @@ def get_bio(data):
 def get_timezone(data):
     for line in data.splitlines():
         if "const data = [" in line:
-            timezone = line.split("timezone")[1].split("displayTimezone")[0].replace("\\", "").replace("\"", "").replace(":", "").replace(",", "")
-            print("[+] Scraped timezone: {link}".format(link=timezone))
+            if "timezone" in line:
+                    timezone = line.split("timezone")[1].split("displayTimezone")[0].replace("\\", "").replace("\"", "").replace(":", "").replace(",", "")
+                    print("[+] Scraped timezone: {link}".format(link=timezone))
+
+            
 
 def get_pfp(data):
     for line in data.splitlines():
         if "const data = [" in line:
-            pfp = line.split("pfp")[1].split("url")[1].split("no_border")[0].replace("\\", "").replace("\"", "").replace(":", "").replace(",", "")
+            pfp = line.split("pfp")[1].split("url")[1].split("no_border")[0].replace("\\", "").replace("\"", "").replace(":", "").replace(",", "").split("}")[0]
             print("[+] Scraped pfp: {link}".format(link=pfp))
 
 def get_views(data):
