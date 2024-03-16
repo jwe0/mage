@@ -236,7 +236,7 @@ class Main:
 -s                                          Available services
 
 
--a                                          Check all services
+-a                                          Check all services                                       requires -U not -u
 -soloto                                     Use the solo.to service
 -linktree                                   Use the linktr.ee service
 -ezbio                                      Use the ezio service
