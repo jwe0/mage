@@ -1,5 +1,5 @@
 import sys, shutil, os, requests, json
-from lookup import soloto, linktree, ezbio, onlymyspace
+from lookup import soloto, linktree, ezbio, onlymyspace, allmylinks
 from requests_html import HTMLSession, AsyncHTMLSession
 from pystyle import Colorate, Colors, Center
 from datetime import datetime
@@ -115,6 +115,7 @@ class Search:
 
             if onlymyspace.is_valid(data.text) != True:
                 print("[+] Data for {}".format(sys.argv[2].split("https://only-my.space/")[1]))
+                print("[+] Service: https://only-my.space")
 
 
                 onlymyspace.get_username(data.text)
@@ -135,6 +136,7 @@ class Search:
 
             if onlymyspace.is_valid(data.text) != True:
                 print("[+] Data for {}".format(site))
+                print("[+] Service: https://only-my.space")
 
 
                 onlymyspace.get_username(data.text)
@@ -150,6 +152,46 @@ class Search:
 
                 return True
                 
+
+    def allmylinks(site, mode):
+        if mode == "url":
+            s = HTMLSession()
+            data = s.get(site)
+
+            if allmylinks.is_valid(data.text) != True:
+                print("[+] Data for {}".format(sys.argv[2].split("https://allmylinks.com/")[1]))
+                print("[+] Service: https://allmylinks.com")
+
+                allmylinks.get_username(data.text)
+                allmylinks.get_birthday(data.text)
+                allmylinks.get_email(data.text)
+                allmylinks.get_location(data.text)
+                allmylinks.get_pfp(data.text)
+                allmylinks.get_clips(data.text)
+
+                return True
+
+        elif mode == "username":
+            s = HTMLSession()
+            data = s.get("https://allmylinks.com/" + site)
+
+
+            if allmylinks.is_valid(data.text) != True:
+                print("[+] Data for {}".format(site))
+                print("[+] Service: https://allmylinks.com")
+
+                allmylinks.get_username(data.text)
+                allmylinks.get_birthday(data.text)
+                allmylinks.get_email(data.text)
+                allmylinks.get_location(data.text)
+                allmylinks.get_pfp(data.text)
+                allmylinks.get_clips(data.text) 
+
+                return True
+
+        
+
+
                 
 
 
@@ -226,6 +268,17 @@ class Main:
             elif sys.argv[3] == "-U":
                 Search.onlymyspace(sys.argv[2], "username")
 
+
+        elif sys.argv[1] == "-allmylinks":
+            if sys.argv[3] == "-u":
+                Search.allmylinks(sys.argv[2], "url")
+            elif sys.argv[3] == "-U":
+                Search.allmylinks(sys.argv[2], "username")
+
+
+
+
+
         elif sys.argv[1] == "-h":
             help = """
 ( - ) Usage: python mage.py -[SITE] -[URL OR USERNAME] -[MODE]            
@@ -259,7 +312,10 @@ class Main:
                     print()
                 if Search.ezbio(sys.argv[2], "url"):
                     print()
-                Search.onlymyspace(sys.argv[2], "url")
+                if Search.onlymyspace(sys.argv[2], "url"):
+                    print()
+                if Search.allmylinks(sys.argv[2], "url"):
+                    print()
 
 
 
@@ -272,7 +328,10 @@ class Main:
                     print()
                 if Search.ezbio(sys.argv[2], "username"):
                     print()
-                Search.onlymyspace(sys.argv[2], "username")
+                if Search.onlymyspace(sys.argv[2], "username"):
+                    print()
+                if Search.allmylinks(sys.argv[2], "username"):
+                    print()
 
                 
 
