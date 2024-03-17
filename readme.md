@@ -27,6 +27,7 @@ Mage is a python based profile link website enumerator. It works by checking and
 | linktr.ee     | ✅       |  username, pfp, links     |
 | e-z.bio       | ✅       |  username, ranks, discord, pfp, links
 | only-my.space | ✅       | username ,views, pronouns, timezone, bio, badges, id, links, pfp, discord
+| allmylinks.com | ✅ | username, birthday, email, location, pfp, clipboard items
 
 # Install
 1. Run `git clone https://github.com/jwe0/mage` to clone the repository
