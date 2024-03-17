@@ -1,7 +1,8 @@
-import sys, shutil, os, requests, json
+import sys, shutil, os, requests, json, threading
 from lookup import soloto, linktree, ezbio, onlymyspace, allmylinks
 from requests_html import HTMLSession, AsyncHTMLSession
 from pystyle import Colorate, Colors, Center
+from colorama import Fore
 from datetime import datetime
 
 
@@ -191,7 +192,12 @@ class Search:
 
         
 
-
+class Enumerate:
+    def username_enum(site, name):
+        session = HTMLSession()
+        data = session.get(site + name)
+        if data.status_code == 200:
+            print(f"[{Fore.YELLOW}+{Fore.RESET}] [{Fore.LIGHTBLACK_EX}{datetime.now().strftime('%H:%M:%S')}{Fore.RESET}] [{Fore.GREEN}{data.status_code}{Fore.RESET}] [{site + name}]")
                 
 
 
@@ -285,19 +291,25 @@ class Main:
 
 ( - ) Example: python mage.py -soloto jwe0 -U
 
--h                                          Display a help message
--s                                          Available services
+-h                                        Display a help message
+-s                                        Available services
 
 
--a                                          Check all services                                       requires -U not -u
--soloto                                     Use the solo.to service
--linktree                                   Use the linktr.ee service
--ezbio                                      Use the ezio service
--onlymyspace                                Use the onlymyspace service
+-a                                        Check all services                                       requires -U not -u
+-soloto                                   Use the solo.to service
+-linktree                                 Use the linktr.ee service
+-ezbio                                    Use the ezio service
+-onlymyspace                              Use the onlymyspace service
+-allmylinks                               Use the allmylinks service
 
 
--u                                          Use a url from the specified website
--U                                          Use a username you have to check the specified website
+-scan                                     Scan a target for usernames (status code check)  
+                                          - ( - ) Usage: python mage.py -scan [URL] [USER-LIST]      
+                                          - ( - ) Example: python mage.py -scan https://solo.to Assets/usernames.txt   
+
+
+-u                                        Use a url from the specified website
+-U                                        Use a username you have to check the specified website
             """
             print(help)
 
@@ -333,6 +345,14 @@ class Main:
                 if Search.allmylinks(sys.argv[2], "username"):
                     print()
 
+        elif sys.argv[1] == "-scan":
+            print("[+] Scanning {target}".format(target=sys.argv[2]))
+            if os.path.isfile(sys.argv[3]):
+                with open(sys.argv[3], errors='ignore', encoding='utf-8') as f:
+                    for line in f.read().splitlines():
+                        threading.Thread(target=Enumerate.username_enum, args=[sys.argv[2], line]).start()
+            
+
                 
 
         
@@ -341,3 +361,4 @@ class Main:
 
 if __name__ == "__main__":
     Main.Main()
+    
