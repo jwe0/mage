@@ -36,6 +36,32 @@ Mage is a python based profile link website enumerator. It works by checking and
 4. Finally run `python mage.py -h` for mage help.
 5. Enjoy :)
 
+# Help
+```
+( - ) Usage: python mage.py -[SITE] -[URL OR USERNAME] -[MODE]            
+
+( - ) Example: python mage.py -soloto jwe0 -U
+
+-h                                        Display a help message
+-s                                        Available services
+
+
+-a                                        Check all services                                       requires -U not -u
+-soloto                                   Use the solo.to service
+-linktree                                 Use the linktr.ee service
+-ezbio                                    Use the ezio service
+-onlymyspace                              Use the onlymyspace service
+-allmylinks                               Use the allmylinks service
+
+
+-scan                                     Scan a target for usernames (status code check)  
+                                          - ( - ) Usage: python mage.py -scan [URL] [USER-LIST]      
+                                          - ( - ) Example: python mage.py -scan https://solo.to Assets/usernames.txt   
+
+
+-u                                        Use a url from the specified website
+-U                                        Use a username you have to check the specified website
+```
 
 # Config.json
 ```json
