@@ -72,6 +72,6 @@ Mage is a python based profile link website enumerator. It works by checking and
 ```
 
 # Regards
-I take no legal responsiblity for any negative actions commited with my software. This was made for ethical purposes only <3.
+I take no legal responsibility for any negative actions committed with my software. This was made for ethical purposes only <3.
 
 If u want to add webites email me the site and I will add it or not depending on their antirobot.
